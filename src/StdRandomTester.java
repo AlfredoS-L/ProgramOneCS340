@@ -46,7 +46,9 @@
  ******************************************************************************/
 
 //package edu.princeton.cs.algs4;
-
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Nested;
+import static org.junit.jupiter.api.Assertions.*;
 import java.util.Random;
 
 /**
@@ -720,21 +722,21 @@ public final class StdRandomTester {
             System.out.println("Uniform Integers: ");
             for (int i = 0; i < size; i++) {
                 System.out.print(uniformInt(100) + " ");
-                if ((i + 1) % 10 == 0) System.out.println();
+                if ((i + 1) % 20 == 0) System.out.println();
             }
             System.out.println();
 
             System.out.println("Gaussian Distribution: ");
             for (int i = 0; i < size; i++) {
                 System.out.printf("%.2f ", gaussian(0.0, 1.0));
-                if ((i + 1) % 10 == 0) System.out.println();
+                if ((i + 1) % 20 == 0) System.out.println();
             }
             System.out.println();
 
             System.out.println("Bernoulli Distribution: ");
             for (int i = 0; i < size; i++) {
                 System.out.print(bernoulli(0.5) + " ");
-                if ((i + 1) % 10 == 0) System.out.println();
+                if ((i + 1) % 20 == 0) System.out.println();
             }
             System.out.println();
 
@@ -742,12 +744,42 @@ public final class StdRandomTester {
             System.out.println("Discrete Distribution: ");
             for (int i = 0; i < size; i++) {
                 System.out.print(discrete(probabilities) + " ");
-                if ((i + 1) % 10 == 0) System.out.println();
+                if ((i + 1) % 20 == 0) System.out.println();
             }
             System.out.println("\n");
         }
     }
+    @Nested
+    class StdRandomTests {
+
+        @Test
+        public void testUniformInt() {
+            int value = StdRandomTester.uniformInt(100);
+            assertTrue(value < 100);
+        }
+
+        @Test
+        public void testGaussian() {
+            double value = StdRandomTester.gaussian(0.0, 1.0);
+            assertTrue(value <= 5.0);
+            assertTrue(value >= -5.0);
+        }
+
+        @Test
+        public void testBernoulli() {
+            boolean value = StdRandomTester.bernoulli(0.5);
+            assertTrue(value || !value);
+        }
+
+        @Test
+        public void testDiscrete() {
+            double[] probabilities = {0.5, 0.3, 0.1, 0.1};
+            int value = StdRandomTester.discrete(probabilities);
+            assertTrue(value >= 0 && value <= 3);
+        }
+    }
 }
+
 
 /******************************************************************************
  *  Copyright 2002-2022, Robert Sedgewick and Kevin Wayne.
